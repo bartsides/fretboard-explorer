@@ -1,0 +1,23 @@
+@import "components/card";
+@import "components/fretNote";
+@import "components/select";
+@import "components/stripSelector";
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+html,
+body {
+  background-color: $backgroundColor;
+  .v-select {
+    color: $darkColor;
+  }
+}
+
+.text-muted {
+  color: $mutedColor !important;
+}
+
+.selection-hover {
+  background-color: $highlightColor2;
+  color: $darkColor;
+}

@@ -1,0 +1,19 @@
+.strip-selector-option {
+  padding: 10px;
+  border: 1px solid $highlightColor;
+  background-color: $backgroundColor;
+  max-width: 55px;
+}
+.strip-selector-option:first-of-type {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-left: 2px solid $highlightColor;
+}
+.strip-selector-option:last-of-type {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-right: 2px solid $highlightColor;
+}
+.strip-selector-option-selected {
+  background-color: $highlightColor !important;
+}

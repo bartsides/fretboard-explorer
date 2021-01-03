@@ -1,0 +1,31 @@
+.fret-icon {
+  height: 70%;
+  width: 100%;
+  max-width: 30px;
+  margin: auto;
+  padding-left: 1px;
+  padding-right: 1px;
+  z-index: 1;
+  color: $color;
+}
+.fret-note-mark {
+  border: 1px solid $darkColor;
+  background: $highlightColor2;
+  color: $darkColor;
+  border-radius: 50%;
+}
+.fret-note-highlight {
+  border: 1px solid $darkColor;
+  background: $highlightColor;
+  color: $textColor;
+  border-radius: 50%;
+  box-shadow: 1px 1px 4px $darkColor;
+}
+.fret-strip-selector-option-selected {
+  border: 1px solid black;
+  border-radius: 50%;
+}
+.nut-filler {
+  color: $backgroundColor;
+  width: 15px;
+}
