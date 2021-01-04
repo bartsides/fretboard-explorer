@@ -1,7 +1,17 @@
 <template>
   <div class="fretboard py-5" :class="{ rotate: rotate }">
-    <div v-if="options && options.tuning" class="container">
-      <div class="row fret-numbers justify-content-center">
+    <div
+      v-if="options && options.tuning"
+      class="container"
+      :class="{ 'mx-0': rotate }"
+    >
+      <div
+        class="row fret-numbers"
+        :class="{
+          'justify-content-center': !rotate || !isSmallScreen,
+          'justify-content-start': rotate && isSmallScreen
+        }"
+      >
         <div
           ref="rotateButton"
           class="rotate-button"
@@ -31,7 +41,11 @@
         </div>
       </div>
       <div
-        class="row string-row justify-content-center"
+        class="row string-row"
+        :class="{
+          'justify-content-center': !rotate || !isSmallScreen,
+          'justify-content-start': rotate && isSmallScreen
+        }"
         v-for="(note, i) in options.tuning.notes.slice().reverse()"
         :key="i"
       >
@@ -100,7 +114,6 @@ export default {
     return {
       notesInScale: [],
       rotate: false,
-      isMobile: false,
       windowWidth: window.innerWidth
     };
   },
@@ -164,9 +177,10 @@ export default {
         : [];
     },
     numFrets() {
-      return (this.rotate ? this.windowHeight : this.windowWidth) < 992
-        ? 12
-        : this.frets;
+      return !this.rotate && this.isSmallScreen ? 12 : this.frets;
+    },
+    isSmallScreen() {
+      return this.windowWidth < 992;
     }
   },
   watch: {

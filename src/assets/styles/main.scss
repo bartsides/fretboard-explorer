@@ -5,6 +5,10 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
+html {
+  overflow-x: hidden;
+}
+
 html,
 body {
   background-color: $backgroundColor;
