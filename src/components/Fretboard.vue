@@ -43,7 +43,6 @@
           class="fret-number"
           :class="{ 'first-fret': fret === 1 }"
         >
-          <div v-if="fret === 1" class="nut-filler">.</div>
           <div class="mx-auto">{{ fret }}</div>
         </div>
       </div>
@@ -170,7 +169,6 @@ export default {
     fretWidth(fret) {
       if (fret === 0) return this.defaultFretWidth + 10;
       let result = this.defaultFretWidth * 32 * SpacingService.getSpacing(fret);
-      if (fret === 1) result += 15;
       return result;
     },
     onResize() {
@@ -261,8 +259,9 @@ export default {
 .nut-container {
   height: 100%;
   width: $nutWidth;
+  min-width: $nutWidth;
   margin-left: -4px;
-  margin-right: 10px;
+  margin-right: 0px;
   color: $backgroundColor;
 }
 .nut {
@@ -284,9 +283,6 @@ export default {
 }
 .last-nut {
   border-radius: 6px;
-}
-.first-fret {
-  margin-left: -15px;
 }
 .invis-text {
   color: $backgroundColor;

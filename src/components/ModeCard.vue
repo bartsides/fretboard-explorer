@@ -1,6 +1,13 @@
 <template>
-  <div class="mode-card card" v-if="mode">
-    <div class="card-header container">
+  <div
+    class="mode-card card"
+    v-if="mode"
+    :class="{ 'mode-card-selected': selected }"
+  >
+    <div
+      class="card-header container"
+      :class="{ 'mode-card-selected': selected }"
+    >
       <div class="row">
         <div
           v-if="index"
@@ -27,3 +34,8 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.mode-card-selected {
+  background-color: $highlightColor;
+}
+</style>

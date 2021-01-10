@@ -5,7 +5,6 @@
     :class="{ fret: !isNut }"
     @click="click"
   >
-    <div v-if="fret === 1" class="nut-filler">.</div>
     <div
       class="fret-icon"
       :class="{
