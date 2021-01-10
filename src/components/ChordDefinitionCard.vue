@@ -23,22 +23,9 @@
 import ChordService from "@/services/ChordService";
 export default {
   props: {
-    chord: {
-      type: Object,
-      default() {
-        return null;
-      }
-    },
-    rootNote: {
-      type: Object,
-      default() {
-        return null;
-      }
-    },
-    number: {
-      type: [Number, undefined],
-      default: null
-    }
+    chord: { type: Object, default: () => null },
+    rootNote: { type: Object, default: () => null },
+    number: { type: [Number, undefined], default: null }
   },
   data() {
     return { notes: [] };

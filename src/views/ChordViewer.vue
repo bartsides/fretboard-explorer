@@ -1,11 +1,7 @@
 <template>
   <div class="chord-viewer container">
     <div class="justify-content-center row">
-      <NoteSelector
-        class="col"
-        :selectedNote="baseNote"
-        @noteSelected="noteSelected"
-      />
+      <NoteSelector class="col" v-model="baseNote" :unselectable="true" />
     </div>
     <div
       class="chord-cards-container my-3 mx-1 d-flex flex-wrap align-items-start justify-content-center"

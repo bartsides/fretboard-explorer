@@ -20,23 +20,10 @@
 <script>
 export default {
   props: {
-    mode: {
-      type: Object,
-      default() {
-        return null;
-      }
-    },
-    index: {
-      type: Number,
-      default: 0
-    },
-    selected: {
-      type: Boolean,
-      default: false
-    },
-    fret: {
-      type: Number
-    }
+    mode: { type: Object, default: () => null },
+    index: { type: Number, default: 0 },
+    selected: { type: Boolean, default: false },
+    fret: { type: Number }
   }
 };
 </script>

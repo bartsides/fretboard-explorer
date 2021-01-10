@@ -1,5 +1,5 @@
 <template>
-  <div class="note-selector container">
+  <div class="note-selector container mx-4">
     <div class="select-header justify-content-center row">Note</div>
     <div class="justify-content-center row">
       <div
@@ -8,7 +8,7 @@
         class="strip-selector-option col"
         :class="{
           'strip-selector-option-selected':
-            selectedNote && option.value === selectedNote.value
+            value && option.value === value.value
         }"
         @click="noteSelected(option)"
         @mouseover="$event.target.classList.add('selection-hover')"
@@ -26,17 +26,23 @@ export default {
     return { notes: NoteService.notes };
   },
   props: {
-    selectedNote: {
-      type: Object,
-      default() {
-        return null;
-      }
-    }
+    value: { type: Object, default: () => null },
+    unselectable: { type: Boolean, default: false }
   },
   methods: {
     noteSelected(note) {
-      this.$emit("noteSelected", note);
+      const emitVal =
+        this.unselectable && this.value && this.value.value === note.value
+          ? null
+          : note;
+      this.$emit("input", emitVal);
     }
   }
 };
 </script>
+<style scoped>
+.strip-selector-option {
+  max-width: 55px !important;
+  min-width: 55px;
+}
+</style>

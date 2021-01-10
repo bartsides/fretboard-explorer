@@ -11,6 +11,11 @@ const routes = [
     component: FretboardExplorer
   },
   {
+    path: "/scale-finder",
+    name: "Scale Finder",
+    component: () => import("../views/ScaleFinder.vue")
+  },
+  {
     path: "/chords",
     name: "Chord Viewer",
     component: () => import("../views/ChordViewer.vue")

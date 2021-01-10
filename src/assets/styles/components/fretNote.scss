@@ -13,6 +13,7 @@
   background: $highlightColor2;
   color: $darkColor;
   border-radius: 50%;
+  box-shadow: 1px 1px 4px $darkColor;
 }
 .fret-note-highlight {
   border: 1px solid $darkColor;
@@ -23,7 +24,10 @@
 }
 .fret-strip-selector-option-selected {
   border: 1px solid black;
+  background: $highlightColor3;
+  color: $textColor;
   border-radius: 50%;
+  box-shadow: 1px 1px 4px $darkColor;
 }
 .nut-filler {
   color: $backgroundColor;

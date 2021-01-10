@@ -14,11 +14,7 @@
         </v-select>
       </div>
       <div class="row mb-4">
-        <NoteSelector
-          class="col"
-          :selectedNote="baseNote"
-          @noteSelected="value => (baseNote = value)"
-        />
+        <NoteSelector class="col" v-model="baseNote" />
       </div>
     </div>
     <div

@@ -12,7 +12,6 @@ let scales = [
   { name: "Harmonic Minor", pattern: "1,2,b3,4,5,b6,7" },
   { name: "Melodic Minor (Ascending)", pattern: "1,2,b3,4,5,6,7" },
   { name: "Melodic Minor (Descending)", pattern: "1,2,b3,4,5,b6,b7" },
-  { name: "Chromatic", pattern: "1,b2,2,b3,3,4,b5,5,#5,6,b7,7" },
   { name: "Whole Tone", pattern: "1,2,3,#4,#5,b7" },
   { name: "Pentatonic Major", pattern: "1,2,3,5,6" },
   { name: "Pentatonic Minor", pattern: "1,b3,4,5,b7" },
@@ -25,16 +24,18 @@ let scales = [
   { name: "Lydian Diminished", pattern: "1,2,b3,#4,5,6,7" }
 ];
 
+function getNotesInScale(scale, baseNote) {
+  const results = [];
+  scale.pattern.split(",").forEach(value => {
+    const result = NoteService.getNoteInScale(baseNote, value);
+    if (result !== undefined) results.push(result);
+  });
+  return results;
+}
+
 export default {
   scales,
-  getNotesInScale(scale, baseNote) {
-    const results = [];
-    scale.pattern.split(",").forEach(value => {
-      const result = NoteService.getNoteInScale(baseNote, value);
-      if (result !== undefined) results.push(result);
-    });
-    return results;
-  },
+  getNotesInScale,
   getChordsInScale(scale, baseNote) {
     const results = [];
     const notes = this.getNotesInScale(scale, baseNote);
@@ -50,6 +51,31 @@ export default {
         chord: ChordService.getChordFromNotes(chordNotes)
       });
     }
+    return results;
+  },
+  findMatches(notes) {
+    if (!notes || !notes.length) return [];
+    const results = [];
+    scales
+      .slice()
+      .sort((a, b) => (a.name > b.name ? 1 : -1))
+      .forEach(scale =>
+        NoteService.notes.forEach(function(baseNote) {
+          const scaleNotes = getNotesInScale(scale, baseNote);
+          if (
+            notes.every(
+              note =>
+                scaleNotes.filter(scaleNote => scaleNote.value === note.value)
+                  .length > 0
+            )
+          )
+            results.push({
+              note: baseNote,
+              scale: scale,
+              scaleNotes: scaleNotes.map(n => n.name).join(", ")
+            });
+        })
+      );
     return results;
   }
 };

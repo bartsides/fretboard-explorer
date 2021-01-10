@@ -1,5 +1,12 @@
 <template>
-  <div class="fretboard py-5" :class="{ rotate: rotate }">
+  <div
+    class="fretboard pt-5"
+    :class="{
+      rotate: rotate,
+      'pb-5': !options || !options.slimBottom,
+      'pb-3': options && options.slimBottom
+    }"
+  >
     <div
       v-if="options && options.tuning"
       class="container"
@@ -56,9 +63,12 @@
         <FretNote
           :mark="noteInScale(note, 0)"
           :highlight="highlightFretNote(note, 0)"
+          :selected="fretSelected(i, 0)"
+          :string="i"
           :fret="0"
           :text="fretText(note, 0)"
           :width="fretWidth(0)"
+          @clicked="fretClicked"
         />
         <div class="row nut-container">
           <div class="nut top-nut" :class="{ 'first-nut': i === 0 }">.</div>
@@ -76,10 +86,13 @@
           :key="fret"
           :mark="noteInScale(note, fret)"
           :highlight="highlightFretNote(note, fret)"
+          :selected="fretSelected(i, fret)"
+          :string="i"
           :fret="fret"
           :text="fretText(note, fret)"
           :width="fretWidth(fret)"
           :class="{ 'first-fret': fret === 1 }"
+          @clicked="fretClicked"
         />
       </div>
     </div>
@@ -95,20 +108,11 @@ export default {
     FretNote
   },
   props: {
-    options: {
-      type: Object,
-      default() {
-        return null;
-      }
-    },
-    highlightedNote: {
-      type: Object,
-      default() {
-        return null;
-      }
-    },
+    options: { type: Object, default: () => null },
+    highlightedNote: { type: Object, default: () => null },
     frets: { type: Number, default: 24 },
-    defaultFretWidth: { type: Number, default: 46 }
+    defaultFretWidth: { type: Number, default: 46 },
+    selectedFrets: { type: Array, default: () => null }
   },
   data() {
     return {
@@ -155,6 +159,14 @@ export default {
         : this.notesInScale[0].value;
       return fretNote.value === value;
     },
+    fretSelected(string, fret) {
+      return (
+        this.selectedFrets &&
+        this.selectedFrets.findIndex(
+          f => f.string === string && f.fret === fret
+        ) > -1
+      );
+    },
     fretWidth(fret) {
       if (fret === 0) return this.defaultFretWidth + 10;
       let result = this.defaultFretWidth * 32 * SpacingService.getSpacing(fret);
@@ -163,11 +175,15 @@ export default {
     },
     onResize() {
       this.windowWidth = window.innerWidth;
+      if (this.windowWidth < 556) this.rotate = true;
     },
     rotateButtonHover(hover) {
       const buttonClasses = this.$refs.rotateButton.classList;
       if (hover) buttonClasses.add("rotate-button-hover");
       else buttonClasses.remove("rotate-button-hover");
+    },
+    fretClicked(string, fret) {
+      this.$emit("fretClicked", string, fret);
     }
   },
   computed: {
@@ -254,6 +270,8 @@ export default {
   min-height: 50%;
   border-right: $nutWidth solid $darkColor;
   z-index: 1;
+  margin-left: -1px;
+  margin-right: -1px;
 }
 .top-nut {
   border-radius: 6px 0px;
