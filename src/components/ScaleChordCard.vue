@@ -20,22 +20,9 @@
 <script>
 export default {
   props: {
-    chord: {
-      type: Object,
-      default() {
-        return null;
-      }
-    },
-    notes: {
-      type: Array,
-      default() {
-        return [];
-      }
-    },
-    number: {
-      type: Number,
-      default: 1
-    }
+    chord: { type: Object, default: () => null },
+    notes: { type: Array, default: () => null },
+    number: { type: Number, default: 1 }
   }
 };
 </script>

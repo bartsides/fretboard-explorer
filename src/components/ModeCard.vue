@@ -1,6 +1,13 @@
 <template>
-  <div class="mode-card card" v-if="mode">
-    <div class="card-header container">
+  <div
+    class="mode-card card"
+    v-if="mode"
+    :class="{ 'mode-card-selected': selected }"
+  >
+    <div
+      class="card-header container"
+      :class="{ 'mode-card-selected': selected }"
+    >
       <div class="row">
         <div
           v-if="index"
@@ -20,23 +27,15 @@
 <script>
 export default {
   props: {
-    mode: {
-      type: Object,
-      default() {
-        return null;
-      }
-    },
-    index: {
-      type: Number,
-      default: 0
-    },
-    selected: {
-      type: Boolean,
-      default: false
-    },
-    fret: {
-      type: Number
-    }
+    mode: { type: Object, default: () => null },
+    index: { type: Number, default: 0 },
+    selected: { type: Boolean, default: false },
+    fret: { type: Number }
   }
 };
 </script>
+<style lang="scss" scoped>
+.mode-card-selected {
+  background-color: $highlightColor;
+}
+</style>

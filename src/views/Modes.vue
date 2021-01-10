@@ -24,11 +24,7 @@
         </v-select>
       </div>
       <div class="row justify-content-center">
-        <NoteSelector
-          class="col"
-          :selectedNote="note"
-          @noteSelected="value => (note = value)"
-        />
+        <NoteSelector class="col" v-model="note" />
       </div>
     </div>
     <div class="d-flex justify-content-center flex-wrap">

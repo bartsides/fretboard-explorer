@@ -3,7 +3,7 @@
     <div class="fretboard-options mb-3">
       <div class="container-fluid">
         <div
-          class="d-flex flex-wrap align-items-start justify-content-center row w-100 mb-4"
+          class="d-flex flex-wrap align-items-start justify-content-center row mb-4"
         >
           <v-select
             name="tuning"
@@ -39,11 +39,7 @@
         </div>
       </div>
       <div class="row">
-        <NoteSelector
-          class="col"
-          :selectedNote="baseNote"
-          @noteSelected="value => (baseNote = value)"
-        />
+        <NoteSelector class="col" v-model="baseNote" />
       </div>
     </div>
     <Fretboard :options="options" />
