@@ -1,18 +1,29 @@
 <template>
-  <div class="icon">
-    FE
+  <div class="icon" @click="clicked">
+    F E
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    clicked() {
+      this.$emit("clicked");
+    }
+  }
+};
+</script>
 <style lang="scss" scoped>
-$offset: 5px;
+$xOffset: 4px;
+$yOffset: 6px;
 $blur: 0px;
 .icon {
   color: $textColor;
   font-size: 80px;
   font-family: "Exo 2", sans-serif;
-  text-shadow: -$offset 0 $blur $highlightColor,
-    $offset 0 $blur $highlightColor3, $offset * 2 0 $blur $highlightColor2;
+  text-shadow: $xOffset $yOffset $blur $highlightColor,
+    $xOffset * 2 $yOffset * 2 $blur $highlightColor3,
+    $xOffset * 3 $yOffset * 3 $blur $highlightColor2;
   margin-top: -20px;
-  margin-bottom: -16px;
+  margin-bottom: 2px;
 }
 </style>

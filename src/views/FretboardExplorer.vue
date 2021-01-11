@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="row">
-        <NoteSelector class="col" v-model="baseNote" />
+        <NoteSelector class="col" v-model="rootNote" />
       </div>
     </div>
     <Fretboard :options="options" />
@@ -64,7 +64,7 @@ export default {
       notes: NoteService.notes,
       tunings: TuningService.tunings,
       scales: ScaleService.scales,
-      baseNote: NoteService.notes[7],
+      rootNote: NoteService.notes[7],
       tuning: TuningService.tunings[0],
       scale: ScaleService.scales[0],
       textMode: "Number"
@@ -73,7 +73,7 @@ export default {
   computed: {
     options() {
       return {
-        baseNote: this.baseNote,
+        rootNote: this.rootNote,
         scale: this.scale,
         tuning: this.tuning,
         textMode: this.textMode

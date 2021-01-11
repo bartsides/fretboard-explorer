@@ -54,7 +54,7 @@
     <Fretboard
       class="mb-5"
       :options="{
-        baseNote: note,
+        rootNote: note,
         scale: scale,
         tuning: tuning,
         textMode: 'Number'
@@ -86,8 +86,8 @@ export default {
   },
   methods: {
     getFret(mode) {
-      const baseNote = this.tuning.notes[0];
-      let diff = mode.note.value - baseNote.value;
+      const rootNote = this.tuning.notes[0];
+      let diff = mode.note.value - rootNote.value;
       if (diff < 0) diff += NoteService.notes.length;
       return diff;
     },
@@ -98,7 +98,7 @@ export default {
     modeSelected(mode) {
       this.mode = mode;
     },
-    setBaseNote(note) {
+    setrootNote(note) {
       this.note = note;
     }
   },

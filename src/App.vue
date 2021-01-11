@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div id="nav" class="align-middle">
-      <Icon />
+      <Icon @clicked="home" />
       <router-link to="/">Fretboard Explorer</router-link> |
       <router-link to="/scale-finder">Scale Finder</router-link> |
-      <router-link to="/chords">Chord Viewer</router-link> |
+      <router-link to="/chords">Chords</router-link> |
       <router-link to="/scale-chords">Scale Chords</router-link> |
       <router-link to="/modes">Modes</router-link>
     </div>
@@ -14,7 +14,12 @@
 <script>
 import Icon from "@/components/Icon.vue";
 export default {
-  components: { Icon }
+  components: { Icon },
+  methods: {
+    home() {
+      if (this.$route.path !== "/") this.$router.push("/");
+    }
+  }
 };
 </script>
 <style lang="scss">

@@ -122,7 +122,7 @@ export default {
   },
   methods: {
     noteInScale(stringNote, fret) {
-      if (!this.options || !this.options.scale || !this.options.baseNote)
+      if (!this.options || !this.options.scale || !this.options.rootNote)
         return false;
       const fretNote = NoteService.getNote(stringNote.value + fret);
       if (!fretNote) return false;
@@ -203,8 +203,8 @@ export default {
       immediate: true,
       handler(val) {
         this.notesInScale =
-          val && val.scale && val.baseNote
-            ? ScaleService.getNotesInScale(val.scale, val.baseNote)
+          val && val.scale && val.rootNote
+            ? ScaleService.getNotesInScale(val.scale, val.rootNote)
             : [];
       }
     }

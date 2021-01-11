@@ -1,7 +1,9 @@
 <template>
-  <div class="chord-viewer container">
-    <div class="justify-content-center row">
-      <NoteSelector class="col" v-model="baseNote" :unselectable="true" />
+  <div class="chord-viewer">
+    <div class="container">
+      <div class="justify-content-center row">
+        <NoteSelector class="col" v-model="rootNote" :unselectable="true" />
+      </div>
     </div>
     <div
       class="chord-cards-container my-3 mx-1 d-flex flex-wrap align-items-start justify-content-center"
@@ -10,7 +12,7 @@
         v-for="(chord, i) in chords"
         :key="i"
         :chord="chord"
-        :rootNote="baseNote"
+        :rootNote="rootNote"
       />
     </div>
   </div>
@@ -26,14 +28,14 @@ export default {
     return {
       chords: ChordService.chords,
       notes: NoteService.notes,
-      baseNote: null
+      rootNote: NoteService.notes[7]
     };
   },
   methods: {
     noteSelected(note) {
-      if (this.baseNote && note.value === this.baseNote.value)
-        this.baseNote = null;
-      else this.baseNote = note;
+      if (this.rootNote && note.value === this.rootNote.value)
+        this.rootNote = null;
+      else this.rootNote = note;
     }
   }
 };

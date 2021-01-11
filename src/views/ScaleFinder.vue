@@ -116,7 +116,7 @@ export default {
         tuning: this.tuning,
         textMode: "Name",
         slimBottom: true,
-        baseNote: this.selectedMatch ? this.selectedMatch.note : null,
+        rootNote: this.selectedMatch ? this.selectedMatch.note : null,
         scale: this.selectedMatch ? this.selectedMatch.scale : null
       };
     }
