@@ -8,6 +8,7 @@
     <div
       class="fret-icon"
       :class="{
+        'fret-icon-round': round,
         'fret-note-mark': mark,
         'fret-note-highlight': highlight,
         'fret-strip-selector-option-selected': selected
@@ -27,7 +28,8 @@ export default {
     fret: { type: Number, default: 0 },
     size: { type: Number, default: 35 },
     text: { type: [String, Number], default: "" },
-    width: { type: Number, default: 35 }
+    width: { type: Number, default: 35 },
+    round: { type: Boolean, default: false }
   },
   methods: {
     click() {

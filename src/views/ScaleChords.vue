@@ -1,6 +1,6 @@
 <template>
-  <div class="scale-chords container">
-    <div class="scale-chords-options">
+  <div class="scale-chords">
+    <div class="scale-chords-options container">
       <div class="row justify-content-center mb-4">
         <v-select
           name="scale"
@@ -14,7 +14,7 @@
         </v-select>
       </div>
       <div class="row mb-4">
-        <NoteSelector class="col" v-model="baseNote" />
+        <NoteSelector class="col" v-model="rootNote" />
       </div>
     </div>
     <div
@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       notes: NoteService.notes,
-      baseNote: NoteService.notes[7],
+      rootNote: NoteService.notes[7],
       scales: ScaleService.scales,
       scale: ScaleService.scales[0],
       chords: []
@@ -48,12 +48,12 @@ export default {
   },
   methods: {
     updateChords() {
-      if (!this.baseNote || !this.scale) this.chords = [];
-      this.chords = ScaleService.getChordsInScale(this.scale, this.baseNote);
+      if (!this.rootNote || !this.scale) this.chords = [];
+      this.chords = ScaleService.getChordsInScale(this.scale, this.rootNote);
     }
   },
   watch: {
-    baseNote: {
+    rootNote: {
       deep: true,
       handler() {
         this.updateChords();

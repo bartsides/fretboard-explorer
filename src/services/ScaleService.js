@@ -1,33 +1,13 @@
 import ChordService from "./ChordService";
 import NoteService from "./NoteService";
+import Scales from "@/assets/data/Scales.js";
 
-let scales = [
-  { name: "Major / Ionian", pattern: "1,2,3,4,5,6,7" },
-  { name: "Minor / Aeolian", pattern: "1,2,b3,4,5,b6,b7" },
-  { name: "Dorian", pattern: "1,2,b3,4,5,6,b7" },
-  { name: "Phrygian", pattern: "1,b2,b3,4,5,b6,b7" },
-  { name: "Lydian", pattern: "1,2,3,#4,5,6,7" },
-  { name: "Mixolydian", pattern: "1,2,3,4,5,6,b7" },
-  { name: "Locrian", pattern: "1,b2,b3,4,b5,b6,b7" },
-  { name: "Harmonic Minor", pattern: "1,2,b3,4,5,b6,7" },
-  { name: "Melodic Minor (Ascending)", pattern: "1,2,b3,4,5,6,7" },
-  { name: "Melodic Minor (Descending)", pattern: "1,2,b3,4,5,b6,b7" },
-  { name: "Whole Tone", pattern: "1,2,3,#4,#5,b7" },
-  { name: "Pentatonic Major", pattern: "1,2,3,5,6" },
-  { name: "Pentatonic Minor", pattern: "1,b3,4,5,b7" },
-  { name: "Pentatonic Blues", pattern: "1,b3,4,b5,5,b7" },
-  { name: "Pentatonic Neutral", pattern: "1,2,4,5,b7" },
-  { name: "Octatonic (H-W)", pattern: "1,b2,b3,3,b5,5,6,b7" },
-  { name: "Octatonic (W-H)", pattern: "1,2,b3,4,b5,b6,6,7" },
-  { name: "Lydian Augmented", pattern: "1,2,3,#4,#5,6,7" },
-  { name: "Lydian Minor", pattern: "1,2,3,#4,5,b6,b7" },
-  { name: "Lydian Diminished", pattern: "1,2,b3,#4,5,6,7" }
-];
+let scales = Scales;
 
-function getNotesInScale(scale, baseNote) {
+function getNotesInScale(scale, rootNote) {
   const results = [];
   scale.pattern.split(",").forEach(value => {
-    const result = NoteService.getNoteInScale(baseNote, value);
+    const result = NoteService.getNoteInScale(rootNote, value);
     if (result !== undefined) results.push(result);
   });
   return results;
@@ -36,9 +16,9 @@ function getNotesInScale(scale, baseNote) {
 export default {
   scales,
   getNotesInScale,
-  getChordsInScale(scale, baseNote) {
+  getChordsInScale(scale, rootNote) {
     const results = [];
-    const notes = this.getNotesInScale(scale, baseNote);
+    const notes = this.getNotesInScale(scale, rootNote);
     // build chord triads
     for (let i = 0; i < notes.length; i++) {
       const chordNotes = [
@@ -60,8 +40,8 @@ export default {
       .slice()
       .sort((a, b) => (a.name > b.name ? 1 : -1))
       .forEach(scale =>
-        NoteService.notes.forEach(function(baseNote) {
-          const scaleNotes = getNotesInScale(scale, baseNote);
+        NoteService.notes.forEach(function(rootNote) {
+          const scaleNotes = getNotesInScale(scale, rootNote);
           if (
             notes.every(
               note =>
@@ -70,7 +50,7 @@ export default {
             )
           )
             results.push({
-              note: baseNote,
+              note: rootNote,
               scale: scale,
               scaleNotes: scaleNotes.map(n => n.name).join(", ")
             });

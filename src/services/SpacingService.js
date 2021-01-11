@@ -1,6 +1,6 @@
 // https://johnsaucier.com/calculating-fret-positions
 // Formula for calculating distance between frets
-// A(n) = A(n-1) / 17.817
+// Fret Distance = Remaining Length / 17.817
 
 export default {
   getSpacing(fret) {
