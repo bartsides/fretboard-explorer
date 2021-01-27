@@ -29,6 +29,11 @@ const routes = [
     path: "/modes",
     name: "Modes",
     component: () => import("../views/Modes.vue")
+  },
+  {
+    path: "/tab-charter",
+    name: "Tab Charter",
+    component: () => import("../views/TabCharter.vue")
   }
 ];
 

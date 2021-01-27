@@ -167,11 +167,6 @@ export default {
           this.options.tuning.notes.length - string,
           fret - this.startingFret
         ]);
-        console.log(
-          `${this.chord.name} hide:[${this.diagram.hide
-            .map(h => `[${h[0]}, ${h[1]}]`)
-            .join(",")}]`
-        );
       }
     },
     previousDiagram() {
