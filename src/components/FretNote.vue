@@ -43,26 +43,3 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-.fret-note {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  position: relative;
-  padding: 0 10px;
-  min-width: 29.4327px;
-}
-.fret-note:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  border-top: 1px inset $darkColor;
-  background: $textColor;
-  width: 100%;
-  transform: translateY(-50%);
-}
-.fret {
-  border-right: 4px groove $lightColor;
-}
-</style>

@@ -1,0 +1,10 @@
+input:not(.vs__search, .tab-spot-text) {
+  appearance: none;
+  background: $color;
+  border: 0.5px solid $darkColor;
+  border-radius: 4px;
+  height: 34px !important;
+  color: $textColor;
+  margin-left: 15px;
+  margin-right: 15px;
+}
