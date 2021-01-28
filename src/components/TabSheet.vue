@@ -50,22 +50,28 @@ export default {
         // add more sections
         this.sections += 2;
       }
-      const match = this.selections.find(s => s.x === x && s.y === y);
+      let selections = this.selections.slice();
+      const match = selections.find(s => s.x === x && s.y === y);
       if (!match) {
-        this.selections.push({ x: x, y: y, text: text });
-        this.selectionsChanged();
+        selections.push({ x: x, y: y, text: text });
+        this.selectionsChanged(selections);
         return;
       }
       if (text) {
         match.text = text;
-        this.selectionsChanged();
+        this.selectionsChanged(selections);
       } else {
-        this.selections = this.selections.filter(s => s.x !== x && x.y !== y);
-        this.selectionsChanged();
+        selections = selections.filter(
+          s =>
+            (s.x !== x && s.y !== y) ||
+            (s.x === x && s.y !== y) ||
+            (s.x !== x && s.y === y)
+        );
+        this.selectionsChanged(selections);
       }
     },
-    selectionsChanged() {
-      this.$emit("selectionsChanged", this.selections);
+    selectionsChanged(selections) {
+      this.$emit("selectionsChanged", selections);
     }
   },
   computed: {
