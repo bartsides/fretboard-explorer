@@ -13,6 +13,8 @@ Vue.component("v-select", vSelect);
 // Font Awesome setup
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+  faCaretSquareDown,
+  faCaretSquareUp,
   faChevronLeft,
   faChevronRight,
   faSave,
@@ -20,7 +22,15 @@ import {
   faFolderOpen
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-library.add(faChevronLeft, faChevronRight, faSave, faSync, faFolderOpen);
+library.add(
+  faCaretSquareDown,
+  faCaretSquareUp,
+  faChevronLeft,
+  faChevronRight,
+  faSave,
+  faSync,
+  faFolderOpen
+);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 new Vue({
