@@ -1,6 +1,14 @@
 <template>
   <div id="app">
     <div id="nav">
+      <vue-slider
+        id="volume-slider"
+        v-model="volume"
+        :min="-24"
+        :max="0"
+        :width="100"
+        tooltip="none"
+      />
       <template v-if="smallMenu">
         <div class="side-menu">
           <template v-if="collapsed">
@@ -48,10 +56,13 @@
 </template>
 <script>
 import Icon from "@/components/Icon.vue";
+import SoundService from "./services/SoundService";
+import VueSlider from "vue-slider-component";
 export default {
-  components: { Icon },
+  components: { Icon, VueSlider },
   data() {
     return {
+      volume: -12,
       collapsed: true,
       windowWidth: window.innerWidth,
       routes: [
@@ -77,6 +88,14 @@ export default {
       return this.windowWidth < 768;
     }
   },
+  watch: {
+    volume: {
+      immediate: true,
+      handler(val) {
+        SoundService.setVolume(val);
+      }
+    }
+  },
   mounted() {
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
@@ -93,7 +112,14 @@ export default {
   color: $textColor;
 }
 
+#volume-slider {
+  position: absolute;
+  top: 26px;
+  right: 10px;
+}
+
 #nav {
+  position: relative;
   color: $darkColor;
   font-weight: bold;
   text-align: start;

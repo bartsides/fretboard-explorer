@@ -13,20 +13,38 @@
       </div>
     </h5>
     <div v-if="notes" class="card-body px-0">
+      <font-awesome-icon
+        class="play-button"
+        icon="bullhorn"
+        @click="strum"
+      ></font-awesome-icon>
       {{ notes.map(n => n.name).join(" ") }}
-      <ChordDiagram v-if="chord && chord.diagrams" :options="options" />
+      <ChordDiagram
+        v-if="chord && chord.diagrams"
+        :options="options"
+        @diagramSelected="val => (diagramNotes = val)"
+      />
     </div>
   </div>
 </template>
 <script>
 import ChordDiagram from "@/components/ChordDiagram";
 import TuningService from "../services/TuningService";
+import SoundService from "../services/SoundService";
 export default {
   components: { ChordDiagram },
   props: {
     chord: { type: Object, default: () => null },
     notes: { type: Array, default: () => null },
     number: { type: Number, default: 1 }
+  },
+  data() {
+    return { diagramNotes: [] };
+  },
+  methods: {
+    strum() {
+      SoundService.strum(this.diagramNotes);
+    }
   },
   computed: {
     options() {
@@ -42,5 +60,24 @@ export default {
 <style lang="scss" scoped>
 .scale-chord-card {
   min-width: 300px;
+}
+
+.play-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid $darkColor;
+  border-radius: 0.25rem;
+  background-color: $darkColor;
+  padding: 4px;
+}
+.play-button:hover {
+  color: $highlightColor;
+}
+
+.card-body {
+  position: relative;
 }
 </style>

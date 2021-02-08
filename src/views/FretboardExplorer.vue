@@ -54,7 +54,7 @@ import TuningService from "@/services/TuningService";
 import ScaleService from "@/services/ScaleService";
 
 export default {
-  name: "Home",
+  name: "fretboard-explorer",
   components: {
     Fretboard,
     NoteSelector
