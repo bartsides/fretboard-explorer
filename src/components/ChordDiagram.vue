@@ -112,7 +112,8 @@ export default {
     return {
       debug: true,
       notesInChord: [],
-      diagramIndex: 0
+      diagramIndex: 0,
+      diagramNotes: []
     };
   },
   methods: {
@@ -237,6 +238,29 @@ export default {
         this.notesInChord = [];
         if (!val || !val.rootNote || !val.chord || !val.chord.rootNotes) return;
         this.notesInChord = ChordService.getNotes(val.rootNote, val.chord);
+      }
+    },
+    diagram: {
+      immediate: true,
+      handler() {
+        this.diagramNotes = [];
+        if (!this.options || !this.options.tuning) return;
+        const tuningNotes = this.options.tuning.notes.slice().reverse();
+        for (let i = 0; i < tuningNotes.length; i++) {
+          const stringNote = tuningNotes[i];
+          this.frets.forEach(fret => {
+            if (
+              !this.hideNote(i, fret) &&
+              (this.highlightFretNote(stringNote, fret) ||
+                this.noteInChord(stringNote, fret))
+            ) {
+              this.diagramNotes.unshift(
+                NoteService.getNoteWithMod(stringNote, fret)
+              );
+            }
+          });
+        }
+        this.$emit("diagramSelected", this.diagramNotes);
       }
     }
   }

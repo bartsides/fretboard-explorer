@@ -13,10 +13,12 @@
     "@fortawesome/vue-fontawesome": "^2.0.2",
     "bootstrap": "^4.5.3",
     "core-js": "^3.6.5",
+    "tone": "^14.7.77",
     "vue": "^2.6.11",
     "vue-fontawesome": "0.0.2",
     "vue-router": "^3.2.0",
-    "vue-select": "^3.11.2"
+    "vue-select": "^3.11.2",
+    "vue-slider-component": "^3.2.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

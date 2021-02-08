@@ -6,6 +6,7 @@ import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "@/assets/styles/main.scss";
+import "vue-slider-component/theme/antd.css";
 
 Vue.config.productionTip = false;
 Vue.component("v-select", vSelect);
@@ -13,6 +14,7 @@ Vue.component("v-select", vSelect);
 // Font Awesome setup
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+  faBullhorn,
   faCaretSquareDown,
   faCaretSquareUp,
   faChevronLeft,
@@ -23,6 +25,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(
+  faBullhorn,
   faCaretSquareDown,
   faCaretSquareUp,
   faChevronLeft,

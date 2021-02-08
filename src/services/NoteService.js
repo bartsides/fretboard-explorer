@@ -4,7 +4,9 @@ const notes = Notes;
 
 function getNoteFromValue(value) {
   while (value < 1) value += notes.length;
-  return notes[(value - 1) % notes.length];
+  while (value > notes.length) value -= notes.length;
+  const note = notes.find(n => n.value === value);
+  return note;
 }
 
 function getNoteFromName(name) {
@@ -12,12 +14,18 @@ function getNoteFromName(name) {
   if (name.includes("b")) mod = -1;
   else if (name.includes("#")) mod = 1;
 
-  if (mod === 0) return notes.find(n => n.name === name);
-  const match = notes.find(
-    n => n.name === name.replace("b", "").replace("#", "")
-  );
-  if (!match) return undefined;
-  return getNoteFromValue(match.value + mod);
+  const octave = parseInt(name.replace(/^\D+/g, ""));
+  // strip octave number
+  name = name
+    .replace(/[0-9]/g, "")
+    .replace("b", "")
+    .replace("#", "");
+
+  let note = notes.find(n => n.name === name);
+  if (!note) return undefined;
+  if (mod) note = getNoteFromValue(note.value + mod);
+  note.octave = octave;
+  return note;
 }
 
 export default {
@@ -30,6 +38,25 @@ export default {
           : getNoteFromName(value)
       )
     );
+  },
+  getNoteWithMod(rootNote, mod) {
+    // only supports positive mod
+    if (!rootNote) return;
+    if (mod === 0) return rootNote;
+    const note = this.getNote(rootNote.value + mod);
+    const notes = this.notes.length;
+    let octave = rootNote.octave;
+    if (
+      octave !== undefined &&
+      octave !== null &&
+      mod > notes - rootNote.value
+    ) {
+      octave++;
+      mod -= notes - rootNote.value;
+      if (mod > notes) octave += Math.floor(mod / notes);
+    }
+    note.octave = octave;
+    return note;
   },
   getNoteInScale(rootNote, value) {
     let mod = rootNote.value;
