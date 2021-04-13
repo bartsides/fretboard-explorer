@@ -72,16 +72,38 @@ export default {
     },
     selectionsChanged(selections) {
       this.$emit("selectionsChanged", selections);
+    },
+    async loadSelections() {
+      // wait until selections are loaded
+      async () => {
+        while (!this.selections || !this.selections.length) {
+          await new Promise(resolve => setTimeout(resolve, 50));
+        }
+      };
+
+      var max = 0;
+      var len = this.selections.length;
+      while (len--) {
+        if (this.selections[len].x > max) max = this.selections[len].x;
+      }
+
+      var lines = Math.ceil(max / (this.sectionWidth * this.lineWidth));
+      lines += 2;
+      this.sections = lines * this.lineWidth;
+      if (this.sections < 4) this.sections = 4;
     }
   },
   computed: {
     tuningNotes() {
       return this.tuning ? this.tuning.notes : [];
+    },
+    defaultSections() {
+      return this.lineWidth * 4;
     }
   },
   mounted() {
     // default 4 lines
-    this.sections = this.lineWidth * 4;
+    this.sections = this.defaultSections;
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });

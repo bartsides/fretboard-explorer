@@ -40,6 +40,7 @@
       :tuning="tuning"
       :selections="selections"
       @selectionsChanged="val => (selections = val)"
+      ref="tabsheet"
     />
   </div>
 </template>
@@ -76,13 +77,15 @@ export default {
     load(e) {
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
+      this.selections = [];
       let reader = new FileReader();
-      reader.addEventListener("load", event => {
+      reader.addEventListener("load", async event => {
         var fileText = event.target.result;
         const data = JSON.parse(fileText);
         this.name = data.name;
         this.tuning = data.tuning;
         this.selections = data.selections;
+        if (this.selections.length) await this.$refs.tabsheet.loadSelections();
       });
       reader.readAsText(files[0]);
     }
