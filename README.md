@@ -1,6 +1,6 @@
 # fretboard-explorer
 
-## View
+## Deployed Website
 [https://fretexp.com](https://fretexp.com)
 
 ## Project setup
