@@ -1,5 +1,8 @@
 # fretboard-explorer
 
+## View
+[https://fretexp.com](https://fretexp.com)
+
 ## Project setup
 
 ```
