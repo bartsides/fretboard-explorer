@@ -2,7 +2,11 @@
 defineProps<{ small: boolean }>();
 </script>
 <template>
-  <router-link class="icon unselectable" :class="{ 'big-icon': !small }" to="/">
+  <router-link
+    class="icon unselectable"
+    :class="{ 'big-icon': !small }"
+    to="/fretboard-explorer"
+  >
     {{ small ? "FE" : "Fretboard Explorer" }}
   </router-link>
 </template>

@@ -88,7 +88,7 @@ function highlightFretNote(stringNote: Note, fret: number): boolean {
   if (!fretNote) return false;
   return fretNote.value === scaleNotes[0].value;
 }
-function fretSelected(string: number, fret: number): boolean {
+function fretSelected(_string: number, _fret: number): boolean {
   return false;
   // return (
   //   selectedFrets &&

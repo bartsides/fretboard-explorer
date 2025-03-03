@@ -17,10 +17,10 @@ watchEffect(() => (state.small = small));
 // TODO: Deploy to github pages
 
 const routes: NavRoute[] = [
-  { name: "Fretboard Explorer", route: "/" },
+  { name: "Fretboard Explorer", route: "/fretboard-explorer" },
   //{ name: "Scale Finder", route: "scale-finder" },
   //{ name: "Chords", route: "chords" },
-  { name: "Modes", route: "modes" },
+  { name: "Modes", route: "/fretboard-explorer/modes" },
   //{ name: "Tab Charter", route: "tab-charter" },
 ];
 const options: MenuOption[] = routes.map((route) => {

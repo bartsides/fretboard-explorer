@@ -12,22 +12,27 @@ const routes = [
     component: FretboardExplorer,
   },
   {
-    path: "/scale-finder",
+    path: "/fretboard-explorer",
+    name: "Fretboard Explorer",
+    component: FretboardExplorer,
+  },
+  {
+    path: "/fretboard-explorer/scale-finder",
     name: "Scale Finder",
     component: ScaleFinder,
   },
   {
-    path: "/chords",
+    path: "/fretboard-explorer/chords",
     name: "Chords",
     component: Chords,
   },
   {
-    path: "/modes",
+    path: "/fretboard-explorer/modes",
     name: "Modes",
     component: Modes,
   },
   {
-    path: "/tab-charter",
+    path: "/fretboard-explorer/tab-charter",
     name: "Tab Charter",
     component: TabCharter,
   },

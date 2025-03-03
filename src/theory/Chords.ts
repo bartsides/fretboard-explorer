@@ -1,7 +1,6 @@
 import data from "./data/chordsData";
 import { intervals } from "./Intervals";
-import { notationEquals, Note, Notes } from "./Notes";
-import { getNoteInScale } from "./Scales";
+import { notationEquals, Note } from "./Notes";
 
 export interface ChordDef {
   name: string;
@@ -28,18 +27,18 @@ export interface ChordDiagram {
   hide?: number[][];
 }
 
-const chords: Chord[] = data.map((c) => {
-  return { ...c, notes: getNotes(Notes[0], c) };
-});
+// const chords: Chord[] = data.map((c) => {
+//   return { ...c, notes: getNotes(Notes[0], c) };
+// });
 
-function getNotes(root: Note, chord: ChordDef): Note[] {
-  const notes: Note[] = [];
-  chord.formula.split(" ").forEach((e) => {
-    const result = getNoteInScale(root, e);
-    if (result) notes.push(result);
-  });
-  return notes;
-}
+// function getNotes(root: Note, chord: ChordDef): Note[] {
+//   const notes: Note[] = [];
+//   chord.formula.split(" ").forEach((e) => {
+//     const result = getNoteInScale(root, e);
+//     if (result) notes.push(result);
+//   });
+//   return notes;
+// }
 
 export function getChordFromNotes(notes: Note[]): Chord | undefined {
   if (!notes?.length) return;

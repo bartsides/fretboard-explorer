@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Fretboard from "../components/Fretboard.vue";
+// import Fretboard from "../components/Fretboard.vue";
 </script>
 
 <template>
   <h1>Scale Finder</h1>
   <div class="fretboard-container wide-card">
-    <Fretboard />
+    <!-- <Fretboard /> -->
   </div>
 </template>
 
