@@ -13,9 +13,6 @@ const { small } = defineProps<{ small: boolean }>();
 const state = reactive<{ small: boolean }>({ small: small });
 watchEffect(() => (state.small = small));
 
-// TODO: Move back to repo and commit
-// TODO: Deploy to github pages
-
 const routes: NavRoute[] = [
   { name: "Fretboard Explorer", route: "/fretboard-explorer" },
   //{ name: "Scale Finder", route: "scale-finder" },

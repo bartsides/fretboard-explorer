@@ -16,7 +16,7 @@ const frets = ref(15);
 const textMode = ref<"Name" | "Number" | "">("Number");
 
 const tuningOptions = ref(Tunings.map((t) => getOption(t.name)));
-const modeOptions = ref(Modes.map((m) => getOption(m.name)));
+const modeOptions = ref(Modes.map((m) => getOption(m.altName ?? m.name)));
 const noteOptions = ref(Notes.map((n) => getOption(n.name)));
 const fretOptions = ref([12, 15, 22, 24].map((f) => getOption(f.toString())));
 const textModeOptions = ref(["Name", "Number", ""].map(getOption));
@@ -25,7 +25,7 @@ function tuningSelected(value: string) {
   tuning.value = Tunings.find((t) => t.name === value)!;
 }
 function modeSelected(value: string) {
-  mode.value = Modes.find((m) => m.name === value)!;
+  mode.value = Modes.find((m) => m.name === value || m.altName === value)!;
 }
 function noteSelected(value: string) {
   note.value = Notes.find((n) => n.name === value)!;
@@ -53,7 +53,7 @@ function modeOptionSelected(m: Mode, n: Note) {
       <div class="fretboard-option">
         Mode
         <n-select
-          :value="mode.name"
+          :value="mode.altName ?? mode.name"
           :options="modeOptions"
           @update:value="modeSelected"
         />
