@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import { reactive, ref, watch } from "vue";
+import { inject, reactive, ref, watch } from "vue";
 import { calcFretWidths } from "../services/HelperService";
+import {
+  DefaultSettings,
+  DisplayOption,
+  Settings,
+  settingsSymbol,
+} from "../settings/Settings";
 import { getNote, Note } from "../theory/Notes";
 import { getNotesInScale, Scale } from "../theory/Scales";
-import { Tuning } from "../theory/Tunings";
 import FretNote from "./FretNote.vue";
 
 const emit = defineEmits<{
@@ -11,37 +16,39 @@ const emit = defineEmits<{
 }>();
 
 const props = defineProps<{
-  tuning: Tuning;
   scale: Scale;
   rootNote: Note;
-  textMode: "Name" | "Number" | "";
-  frets: number;
 }>();
 
 function getTuningNotes(notes: Note[]): Note[] {
   return JSON.parse(JSON.stringify(notes)).reverse();
 }
 
-let { defaultFretWidth, frets, tuningNotes, scaleNotes, textMode } = reactive<{
+let settings = inject(settingsSymbol)!;
+function getSettings(): Settings {
+  return settings.value ?? DefaultSettings;
+}
+
+let { defaultFretWidth, frets, tuningNotes, scaleNotes, display } = reactive<{
   defaultFretWidth: number;
   frets: number;
   tuningNotes: Note[];
   scaleNotes: Note[];
-  textMode: "Name" | "Number" | "";
+  display: DisplayOption;
 }>({
   defaultFretWidth: 46,
-  frets: 15,
-  tuningNotes: getTuningNotes(props.tuning.notes),
+  frets: getSettings().frets,
+  tuningNotes: getTuningNotes(getSettings().tuning.notes),
   scaleNotes: getNotesInScale(props.scale, props.rootNote),
-  textMode: props.textMode,
+  display: getSettings().display,
 });
 const fretWidths = ref<number[]>(calcFretWidths(frets, defaultFretWidth));
-watch(
-  () => props.tuning,
-  (val: Tuning) => {
-    tuningNotes = getTuningNotes(val.notes);
-  }
-);
+watch(settings, () => {
+  const val = getSettings();
+  tuningNotes = getTuningNotes(val.tuning.notes);
+  display = val.display;
+  fretWidths.value = calcFretWidths(val.frets, defaultFretWidth);
+});
 watch(
   () => props.scale,
   (val: Scale) => (scaleNotes = getNotesInScale(val, props.rootNote))
@@ -50,17 +57,6 @@ watch(
   () => props.rootNote,
   (val: Note) => (scaleNotes = getNotesInScale(props.scale, val))
 );
-watch(
-  () => props.textMode,
-  (val: "Name" | "Number" | "") => (textMode = val)
-);
-watch(
-  () => props.frets,
-  (val: number) => {
-    frets = val;
-    fretWidths.value = calcFretWidths(frets, defaultFretWidth);
-  }
-);
 function noteInScale(stringNote: Note, fret: number): boolean {
   if (!scaleNotes.length || !stringNote || !props.rootNote) return false;
   const fretNote = getNote(stringNote.value + fret);
@@ -68,10 +64,10 @@ function noteInScale(stringNote: Note, fret: number): boolean {
   return !!scaleNotes.find((n) => n.value === fretNote.value);
 }
 function fretText(stringNote: Note, fret: number): string {
-  if (!textMode || !stringNote) return "";
+  if (!display || !stringNote) return "";
   const note = getNote(stringNote.value + fret);
   if (!note) return "";
-  switch (textMode) {
+  switch (display) {
     case "Name":
       return note.name;
     case "Number":

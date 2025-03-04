@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { darkTheme, GlobalThemeOverrides, NConfigProvider } from "naive-ui";
-import { computed, nextTick, onMounted, reactive } from "vue";
+import { computed, nextTick, onMounted, provide, reactive, ref } from "vue";
 import Nav from "./components/Nav.vue";
+import { DefaultSettings, Settings, settingsSymbol } from "./settings/Settings";
 
 const themeOverrides: GlobalThemeOverrides = {
   common: {
@@ -22,9 +23,15 @@ const state = reactive<{ windowWidth: number }>({
   windowWidth: window.innerWidth,
 });
 
+const settings = ref<Settings>(DefaultSettings);
+provide(settingsSymbol, settings);
+
+function settingsChanged(value: Settings) {
+  settings.value = value;
+}
+
 const onResize = () => (state.windowWidth = window.innerWidth);
 const small = computed(() => state.windowWidth < 768);
-
 onMounted(() => {
   nextTick(() => {
     window.removeEventListener("resize", onResize);
@@ -35,7 +42,7 @@ onMounted(() => {
 
 <template>
   <n-config-provider :theme="darkTheme" :themeOverrides="themeOverrides">
-    <Nav :small="small" />
+    <Nav :small="small" @settingsChanged="settingsChanged" />
     <router-view />
   </n-config-provider>
 </template>
