@@ -32,7 +32,7 @@ const { small } = defineProps<{ small: boolean }>();
 const state = reactive<{ small: boolean }>({ small: small });
 watchEffect(() => (state.small = small));
 
-const showOptions = ref(true);
+const showOptions = ref(false);
 const tuning = ref(DefaultSettings.tuning);
 const display = ref<DisplayOption>(DefaultSettings.display);
 const frets = ref(DefaultSettings.frets);
