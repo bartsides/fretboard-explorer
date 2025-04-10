@@ -3,7 +3,7 @@ import { ChordDef } from "../Chords";
 const ChordDefs: ChordDef[] = [
   {
     name: "Major",
-    abbr: "M",
+    abbr: "",
     formula: "1 3 5",
     diagrams: [
       {},

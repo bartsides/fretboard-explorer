@@ -47,6 +47,7 @@ const routes: NavRoute[] = [
   //{ name: "Chords", route: "chords" },
   { name: "Modes", route: "/fretboard-explorer/modes" },
   //{ name: "Tab Charter", route: "tab-charter" },
+  { name: "Song O'Matic", route: "/fretboard-explorer/songomatic" },
 ];
 const options: MenuOption[] = routes.map((route) => {
   return {

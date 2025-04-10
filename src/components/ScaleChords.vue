@@ -31,11 +31,13 @@ watch(
   <div class="chords-list">
     <div v-for="(chord, i) in chords" class="chord-card">
       <div class="chord-number">{{ i + 1 }}</div>
-      <div class="chord-note">{{ chord.notes[0].name }}</div>
-      <div class="chord-name">{{ chord.name }}</div>
-      <div class="chord-notes">
-        {{ chord.notes.map((n) => n.name).join(" ") }}
+      <div class="chord-name">
+        {{ chord.notes[0].name }}
+        <div v-html="chord.abbr"></div>
       </div>
+      <!-- <div class="chord-notes">
+        {{ chord.notes.map((n) => n.name).join(" ") }}
+      </div> -->
     </div>
   </div>
 </template>
@@ -47,6 +49,9 @@ $fontSize: 16px;
   margin-top: 50px;
 }
 .chord-card {
+  display: inline-flex;
+  flex-direction: column;
+  place-content: center;
   position: relative;
   width: 100px;
   height: 96px;
@@ -70,6 +75,9 @@ $fontSize: 16px;
   margin-top: 13px;
 }
 .chord-name {
-  font-size: $fontSize;
+  font-size: 30px;
+  display: inline-flex;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

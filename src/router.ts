@@ -3,6 +3,7 @@ import Chords from "./pages/Chords.vue";
 import FretboardExplorer from "./pages/FretboardExplorer.vue";
 import Modes from "./pages/Modes.vue";
 import ScaleFinder from "./pages/ScaleFinder.vue";
+import SongOMatic from "./pages/SongOMatic.vue";
 import TabCharter from "./pages/TabCharter.vue";
 
 const routes = [
@@ -35,6 +36,11 @@ const routes = [
     path: "/fretboard-explorer/tab-charter",
     name: "Tab Charter",
     component: TabCharter,
+  },
+  {
+    path: "/fretboard-explorer/songomatic",
+    name: "Song O'Matic",
+    component: SongOMatic,
   },
 ];
 
