@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
+const { size } = defineProps<{
   size: number;
 }>();
 </script>
