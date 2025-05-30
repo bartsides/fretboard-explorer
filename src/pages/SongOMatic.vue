@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NSelect } from "naive-ui";
 import { onMounted, ref, watch } from "vue";
+import DiceIcon from "../assets/DiceIcon.vue";
 import SongChord from "../components/SongChord.vue";
 import { getOption } from "../services/HelperService";
 import { Chord } from "../theory/Chords";
@@ -53,6 +54,7 @@ function rollSongChords() {
   songChords.value = [];
   for (let i = 0; i < songLength.value; i++) {
     let val = getNextSongChord();
+    // Avoid the same chord in a row
     while (i > 0 && songChords.value[i - 1] === val) {
       val = getNextSongChord();
     }
@@ -101,8 +103,12 @@ onMounted(() => {
           @update:value="songLengthSelected"
         />
       </div>
+      <button class="reroll-button" @click="rollSongChords()">
+        <DiceIcon :size="48" />
+      </button>
     </div>
   </div>
+  <h1 class="key-display">Key: {{ root.name }} {{ scale.name }}</h1>
   <div class="song-chords">
     <SongChord
       v-for="(scaleIndex, i) in songChords"
@@ -112,9 +118,6 @@ onMounted(() => {
       @reroll="rerollSongChord"
     />
   </div>
-  <!-- <div class="song-structure">
-    {{ songChords.join(" ") }}
-  </div> -->
 </template>
 <style scoped>
 .song-structure {
@@ -124,5 +127,13 @@ onMounted(() => {
   display: inline-flex;
   gap: 40px;
   margin-bottom: 20px;
+}
+.reroll-button {
+  background-color: transparent;
+  border: 0;
+}
+.key-display {
+  margin-top: 0;
+  margin-bottom: 40px;
 }
 </style>
